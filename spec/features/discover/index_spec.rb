@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe '/discover', type: :feature do
   before do
-    @steve = User.create!(name: "steve", email: "steve@steve.com")
+    @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
         visit "/users/#{@steve.id}/discover"
   end
   describe "As a user" do

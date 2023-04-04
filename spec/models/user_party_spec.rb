@@ -7,8 +7,8 @@ RSpec.describe UserParty, type: :model do
   describe '#class_methods' do
     describe '#other_users' do
       it 'returns the other users and not the host user' do
-        steve = User.create!(name: "steve", email: "steve@steve.com")
-        bob = User.create!(name: "bob", email: "bob@bob.com")
+        steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
+        bob = User.create!(name: "bob", email: "bob@bob.com", password: "password")
         Party.create!(movie_id: 238, host_id: steve.id, duration: 175, date: "03/25/2023", time: "02:00 PM")
         expect(UserParty.other_users(steve.id)).to eq([bob])
         expect(UserParty.other_users(steve.id)).to_not include([steve])
@@ -17,9 +17,9 @@ RSpec.describe UserParty, type: :model do
 
     describe '#party_guests' do
       it 'creates a user party for each guest' do
-        steve = User.create!(name: "steve", email: "steve@steve.com")
-        bob = User.create!(name: "bob", email: "bob@bob.com")
-        sheryl = User.create!(name: "sheryl", email: "sheryl@sheryl.com")
+        steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
+        bob = User.create!(name: "bob", email: "bob@bob.com", password: "password")
+        sheryl = User.create!(name: "sheryl", email: "sheryl@sheryl.com", password: "password")
         party = Party.create!(movie_id: 238, host_id: steve.id, duration: 175, date: "03/25/2023", time: "02:00 PM")
         
         expect(UserParty.party_guests([bob.id], party.id)).to eq([UserParty.last])

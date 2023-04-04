@@ -6,6 +6,12 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates_uniqueness_of :email
 
+  validates_confirmation_of :password
+
+  has_secure_password
+
+
+
   # def hosted_parties(user_id)
   # Party.where(':host_id = ?', user_id)
   # end

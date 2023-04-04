@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe '/', type: :feature do
   
   before do
-  @steve = User.create!(name: "steve", email: "steve@steve.com")
+  @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
     visit '/'
   end
 
@@ -23,6 +23,15 @@ RSpec.describe '/', type: :feature do
 
     it "I should see a link that returns me to the landing page" do
       expect(page).to have_link("Landing Page", :href => "/")
+    end
+
+    it "I should see a link to the login page" do
+      expect(page).to have_link("Log In", :href => "/login")
+    end
+
+    it "When I click the link to the login page, I am redirected to the login page" do
+      click_link "Log In"
+      expect(current_path).to eq("/login")
     end
   end
 end

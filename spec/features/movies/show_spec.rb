@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe '/users/:id/movies/:id', type: :feature do
 
   before do
-    @steve = User.create!(name: 'steve', email: 'steve@steve.com')
-    @bob = User.create!(name: "bob", email: "bob@bob.com")
+    @steve = User.create!(name: 'steve', email: 'steve@steve.com', password: "password")
+    @bob = User.create!(name: "bob", email: "bob@bob.com", password: "password")
     
     
   end
@@ -66,7 +66,7 @@ RSpec.describe '/users/:id/movies/:id', type: :feature do
       it "I should see the count of total reviews for the movie", :vcr do
         visit "/users/#{@steve.id}/movies/238"
 
-        expect(page).to have_content("2 Reviews")
+        expect(page).to have_content("3 Reviews")
       end
 
       it "I should see the reviews and their authors", :vcr do

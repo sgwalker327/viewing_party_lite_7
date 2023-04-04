@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'New Viewing Party Page' do
   before do
-    @steve = User.create!(name: "steve", email: "steve@steve.com")
-    @bob = User.create!(name: "bob", email: "bob@bob.com")
-    @meg = User.create!(name: "meg", email: "meg@meg.com")
-    @fran = User.create!(name: "fran", email: "fran@fran.com")
+    @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
+    @bob = User.create!(name: "bob", email: "bob@bob.com", password: "password")
+    @meg = User.create!(name: "meg", email: "meg@meg.com", password: "password")
+    @fran = User.create!(name: "fran", email: "fran@fran.com", password: "password")
   end
 
   describe "when I visit '/users/:id/movies/:movie_id/viewing_party/new'" do

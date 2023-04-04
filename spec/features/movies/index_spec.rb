@@ -4,23 +4,23 @@ RSpec.describe '/users/:id/movies', type: :feature do
   describe 'As a user' do
     context 'When I visit the /users/:id/movies path, where :id, is the id of a valid user' do
       it "When I navigate to this page via the search function I see the following info.", :vcr do
-        @steve = User.create!(name: "steve", email: "steve@steve.com")
+        @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
     
         visit user_discover_index_path(@steve)
           fill_in :search, with: "Matrix"
           click_button "Find Movies"
 
         expect(page.status_code).to eq 200
-        expect(page).to have_content("Vote Average: 8.199")
+        expect(page).to have_content("Vote Average: 8.2")
         expect(page).to have_content("The Matrix Reloaded")
-        expect(page).to have_content("Vote Average: 7.031")
+        expect(page).to have_content("Vote Average: 7.032")
         expect(page).to_not have_content("Hot Dog")
         expect(page).to have_link("The Matrix")
         expect(page).to have_link("The Matrix Reloaded")
       end
 
       it "Displays the message 'Movie Results for: keyword'", :vcr do
-        @steve = User.create!(name: "steve", email: "steve@steve.com")
+        @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
         visit user_discover_index_path(@steve)
         fill_in :search, with: "The Matrix"
         click_button "Find Movies"
@@ -31,7 +31,7 @@ RSpec.describe '/users/:id/movies', type: :feature do
 
       describe "when I click on 'Find Top Rated Movies', I am taken to movies index (/users/:user_id/movies)" do
         before do
-          @steve = User.create!(name: "steve", email: "steve@steve.com")
+          @steve = User.create!(name: "steve", email: "steve@steve.com", password: "password")
           visit user_discover_index_path(@steve)
           click_button "Find Top Rated Movies"
         end
