@@ -72,6 +72,17 @@ RSpec.describe '/', type: :feature do
         expect(page).to have_link("Log In", :href => "/login")
         expect(page).to have_link("Create New User", :href => "/users/new")
       end
+
+      it 'The list of existing users is no longer a link to their show pages, But just a list of email addresses' do
+        sam = User.create!(name: "sam", email: "sam@steve.com", password: "password")
+        User.create!(name: "pam", email: "pam@steve.com", password: "password")
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(sam)
+        
+        visit '/'
+
+        expect(page).to have_content("Existing Users")
+        expect(page).to have_content("pam@steve.com")
+      end
     end
   end
 

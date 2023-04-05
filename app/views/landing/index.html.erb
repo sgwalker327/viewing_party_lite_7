@@ -3,7 +3,7 @@
   <h3>Existing Users</h3>
 
   <% @users.each do |user| %>
-    <%= link_to "#{user.name}", user_path(user.id) %>
+    <%= user.email %>
   <% end %>
 <% else %>
   <%= link_to "Create New User", new_user_path %>
