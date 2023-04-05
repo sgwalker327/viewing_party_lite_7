@@ -16,10 +16,10 @@ RSpec.describe '/', type: :feature do
       expect(page).to have_link("Create New User", :href => "/users/new")
     end
 
-    it "I should see a list of users that are links to their dashboards" do
-      expect(page).to have_content(@steve.name)
-      expect(page).to have_link("steve", :href => "/users/#{@steve.id}")
-    end
+    # it "I should see a list of users that are links to their dashboards" do
+    #   expect(page).to have_content(@steve.name)
+    #   expect(page).to have_link("steve", :href => "/users/#{@steve.id}")
+    # end
 
     it "I should see a link that returns me to the landing page" do
       expect(page).to have_link("Landing Page", :href => "/")
@@ -71,6 +71,16 @@ RSpec.describe '/', type: :feature do
         expect(current_path).to eq("/")
         expect(page).to have_link("Log In", :href => "/login")
         expect(page).to have_link("Create New User", :href => "/users/new")
+      end
+    end
+  end
+
+  describe 'As a visitor' do
+    context 'When I visit the landing page' do
+      it 'I do not see the section of the page that lists existing users' do
+        visit '/'
+
+        expect(page).to_not have_content("Existing Users")
       end
     end
   end
