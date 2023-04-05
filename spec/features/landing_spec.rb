@@ -34,4 +34,44 @@ RSpec.describe '/', type: :feature do
       expect(current_path).to eq("/login")
     end
   end
+
+  describe 'As a logged in user' do
+    context 'When I visit the landing page' do
+      it 'I no longer see a login link or a create user link' do
+        @sam = User.create!(name: "sam", email: "sam@steve.com", password: "password")
+        visit login_path
+        fill_in 'email', with: @sam.email
+        fill_in 'password', with: @sam.password
+
+        click_button("Log In")
+        expect(current_path).to eq(user_path(@sam.id))
+
+        click_link("Landing Page")
+
+        expect(current_path).to eq('/')
+        expect(page).to have_link("Log Out", :href => "/logout")
+        expect(page).to_not have_link("Log In")
+        expect(page).to_not have_link("Create New User", :href => "/users/new")
+      end
+
+      it 'When I click the logout link, I am redirected to the landing page and I see a login link' do
+        @sam = User.create!(name: "sam", email: "sam@steve.com", password: "password")
+        visit login_path
+        fill_in 'email', with: @sam.email
+        fill_in 'password', with: @sam.password
+
+        click_button("Log In")
+        expect(current_path).to eq(user_path(@sam.id))
+
+        click_link("Landing Page")
+        expect(current_path).to eq("/")
+
+        click_link("Log Out")
+
+        expect(current_path).to eq("/")
+        expect(page).to have_link("Log In", :href => "/login")
+        expect(page).to have_link("Create New User", :href => "/users/new")
+      end
+    end
+  end
 end

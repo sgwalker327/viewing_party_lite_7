@@ -1,12 +1,11 @@
 <% if current_user %>
   <%= link_to "Log Out", logout_path %>
+  <h3>Existing Users</h3>
+
+  <% @users.each do |user| %>
+    <%= link_to "#{user.name}", user_path(user.id) %>
+  <% end %>
 <% else %>
-<%= link_to "Create New User", new_user_path %>
-<%= link_to "Log In", login_path %>
-<% end %>
-
-<h3>Existing Users</h3>
-
-<% @users.each do |user| %>
-  <%= link_to "#{user.name}", user_path(user.id) %>
+  <%= link_to "Create New User", new_user_path %>
+  <%= link_to "Log In", login_path %>
 <% end %>
