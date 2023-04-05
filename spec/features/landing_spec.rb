@@ -93,6 +93,18 @@ RSpec.describe '/', type: :feature do
 
         expect(page).to_not have_content("Existing Users")
       end
+
+    context "When I visit the landing page, And then try to visit '/dashboard'" do
+      it 'I remain on the landing page and see a flash message that I must log in' do
+        visit '/'
+        
+        visit '/dashboard'
+
+        expect(current_path).to eq('/')
+        expect(page).to have_content("You must be logged in or registered to visit the dashboard.")
+      end
+      
+    end
     end
   end
 end

@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   post '/login', to: 'users#login_user'
 
   get '/logout', to: 'users#logout'
+
+  get '/dashboard', to: 'users#show'
 end
