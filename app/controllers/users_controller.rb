@@ -4,7 +4,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    if current_user
+      @user = User.find(params[:id])
+    else
+      flash[:error] = "You must be logged in or registered to visit the dashboard."
+      redirect_to '/'
+    end
     # @hosting = @user.hosted_parties(params[:id])
     # @invited = @user.invited_parties
   end
@@ -27,12 +32,18 @@ class UsersController < ApplicationController
   def login_user
     user = User.find_by(email: params[:email])
     if user.authenticate(params[:password])
+      session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.email}!"
       redirect_to user_path(user)
     else
       flash[:error] = "Sorry, your credentials are bad."
       render :login_form
     end
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to '/'
   end
 
   private

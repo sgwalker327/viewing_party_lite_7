@@ -5,9 +5,8 @@ RSpec.describe '/users/:id/movies/:id', type: :feature do
   before do
     @steve = User.create!(name: 'steve', email: 'steve@steve.com', password: "password")
     @bob = User.create!(name: "bob", email: "bob@bob.com", password: "password")
-    
-    
   end
+
   describe 'As a user' do
     context 'When I visit the /users/:id/movies/:id path, where :id, is the id of a valid user' do
       it "I should see the movie's title", :vcr do
@@ -76,6 +75,20 @@ RSpec.describe '/users/:id/movies/:id', type: :feature do
         expect(page).to have_content("The Godfather Review by Al Carlson\r \r The Godfather is a film considered by most to be one of the greatest ever made.")
         expect(page).to have_content("crastana:")
         expect(page).to have_content("The best movie ever...")
+      end
+    end
+  end
+
+  describe 'as a visitor' do
+    context 'If I go to a movies show page, and click the button to create a viewing party' do
+      it "I'm redirected to the movies show page, and a message appears to let me know I must be logged in or registered to create a movie party.", :vcr do
+        @fred = User.create!(name: 'fred', email: 'fred@steve.com', password: "password")
+        visit "/users/#{@fred.id}/movies/238"
+
+        click_button "Create Viewing Party for The Godfather"
+
+        expect(current_path).to eq(user_movies_path(@fred, 238))
+        expect(page).to have_content("You must be logged in or registered to create a viewing party.")
       end
     end
   end
