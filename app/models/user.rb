@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  enum role: %w(default admin)
+  
 
 
   # def hosted_parties(user_id)

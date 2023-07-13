@@ -2,6 +2,8 @@ class UserParty < ApplicationRecord
   belongs_to :user
   belongs_to :party
 
+  enum role: %w(guest host)
+
   def self.other_users(id)
     User.where('id != ?', id)
   end
