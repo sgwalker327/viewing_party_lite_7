@@ -11,6 +11,7 @@ class Movie
               :poster_path
   
   def initialize(data)
+    require 'pry'; binding.pry
     @id = data[:id]
     @title = data[:title]
     @vote_average = data[:vote_average]

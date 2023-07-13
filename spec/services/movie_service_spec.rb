@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MovieService  do
   context "class methods" do
-    context "#top_movies" do
+    context ".top_movies" do
       it "returns movie data", :vcr do
         top_movies = MovieService.top_movies
         expect(top_movies).to be_a(Hash)
@@ -17,7 +17,7 @@ RSpec.describe MovieService  do
       end
     end
 
-    context "#search_movies(search)" do
+    context ".search_movies(search)" do
       it "returns the search results from the movie database", :vcr do
         search_results = MovieService.search_movies("Godfather")
         expect(search_results).to be_a(Hash)
@@ -32,7 +32,7 @@ RSpec.describe MovieService  do
       end
     end
 
-    context "#movie_details(movie_id)" do
+    context ".movie_details(movie_id)" do
       it "returns the movie details from the movie database", :vcr do
         movie_details = MovieService.movie_details(238)
         expect(movie_details).to be_a(Hash)
@@ -44,7 +44,7 @@ RSpec.describe MovieService  do
       end
     end
 
-    context "#movie_cast(movie_id)" do
+    context ".movie_cast(movie_id)" do
       it "returns the movie cast from the movie database", :vcr do
         cast_details = MovieService.movie_cast(238)
         expect(cast_details).to be_a(Hash)
@@ -54,7 +54,7 @@ RSpec.describe MovieService  do
       end
     end
 
-    context '#movie_reviews(movie_id)' do
+    context '.movie_reviews(movie_id)' do
       it 'returns the movie reviews from the movie database', :vcr do
         review_details = MovieService.movie_reviews(238)
         expect(review_details).to be_a(Hash)
